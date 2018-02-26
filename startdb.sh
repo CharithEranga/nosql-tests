@@ -19,28 +19,8 @@ WATCHER_PID=/tmp/watcher.pid
 # comm cputime etimes rss pcpu
 export AWKCMD='{a[$1] = $1; b[$1] = $2; c[$1] = $3; d[$1] = $4; e[$1] = $5} END {for (i in a) printf "%s; %s; %s; %0.1f; %0.1f\n", a[i], b[i], c[i], d[i], e[i]}'
 
-killPIDFile() {
-    PID_FN=$1
-    if test -f ${PID_FN}; then
-        PID=`cat ${PID_FN}`
-        kill ${PID} 2> /dev/null
-        count=0
-        while test -d /proc/${PID}; do
-            echo "."
-            sleep 1
-            count=$((${count} + 1))
-            if test "${count}" -gt 60; then
-                kill -9 ${PID}
-            fi
-        done
-        rm -f ${PID_FN}
-    fi
-}
 
-
-stop_ArangoDB() {
-    killPIDFile "/tmp/arangodb.pid"
-}
+## ArangoDB
 
 start_ArangoDB_mmfiles() {
     ADB=${DBFOLDER}/arangodb
@@ -71,7 +51,7 @@ done > $FN 2>&1" > /dev/null 2>&1 &
     echo "$!" > "${WATCHER_PID}"
 }
  
-start_ArangoDB() {
+start_ArangoDB_rocksdb() {
     ADB=${DBFOLDER}/arangodb
     cd ${ADB}
     ${ADB}/usr/sbin/arangod \
@@ -101,34 +81,7 @@ done > $FN 2>&1" > /dev/null 2>&1 &
     echo "$!" > "${WATCHER_PID}"
 }
 
-stop_MongoDB() {
-    killPIDFile "/var/tmp/mongodb.pid"
-}
-
-start_MongoDB() {
-    numactl --interleave=all \
-        ${DBFOLDER}/mongodb/bin/mongod \
-        --bind_ip 0.0.0.0 \
-        --fork \
-        --logpath /var/tmp/mongodb.log \
-        --pidfilepath /var/tmp/mongodb.pid \
-        --storageEngine wiredTiger \
-        --dbpath ${DBFOLDER}/mongodb/pokec
-
-    nohup bash -c "
-while true; do
-    sleep 1
-    echo -n \"`date`; \"
-    ps -C mongod -o 'comm cputime etimes rss pcpu' --no-headers | \
-        awk '${AWKCMD}'
-done  > $FN 2>&1 " > /dev/null 2>&1 &
-    echo "$!" > "${WATCHER_PID}"
-}
-
-stop_OrientDB() {
-    cd ${DBFOLDER}/orientdb
-    ./bin/shutdown.sh > /dev/null 2>&1
-}
+## OrientDB
 
 start_OrientDB() {
     cd ${DBFOLDER}/orientdb
@@ -146,9 +99,7 @@ done  > $FN 2>&1 " > /dev/null 2>&1 &
     echo "$!" > "${WATCHER_PID}"
 }
 
-stop_Neo4j() {
-  ${DBFOLDER}/neo4j/bin/neo4j stop
-}
+## Neo4j
 
 start_Neo4j() {
     cd ${DBFOLDER}/neo4j
@@ -167,56 +118,6 @@ done  > $FN 2>&1 " > /dev/null 2>&1 &
     sleep 60
 }
 
-stop_Postgresql() {
-  sudo -u postgres ${DBFOLDER}/postgresql/bin/pg_ctl stop -D ${DBFOLDER}/postgresql/pokec_json
-  sudo -u postgres ${DBFOLDER}/postgresql/bin/pg_ctl stop -D ${DBFOLDER}/postgresql/pokec_tabular
-  sudo service collectd stop
-}
-
-start_Postgresql_tabular() {
-    sudo service collectd start
-    sudo -u postgres ${DBFOLDER}/postgresql/bin/pg_ctl start \
-        -D ${DBFOLDER}/postgresql/pokec_tabular/ > /var/tmp/postgresql_tabular.log 2>&1 &
-
-    nohup bash -c "
-while true; do
-    sleep 1
-    echo -n \"`date`; \"
-    ps -C postgres -o 'comm cputime etimes rss pcpu' --no-headers | \
-        awk '${AWKCMD}'
-done  > $FN 2>&1 " > /dev/null 2>&1 &
-    echo "$!" > "${WATCHER_PID}"
-
-}
-
-start_Postgresql_jsonb() {
-    sudo service collectd start
-    sudo -u postgres ${DBFOLDER}/postgresql/bin/pg_ctl start \
-        -D ${DBFOLDER}/postgresql/pokec_json/ > /var/tmp/postgresql_json.log 2>&1 &
-
-    nohup bash -c "
-while true; do
-    sleep 1
-    echo -n \"`date`; \"
-    ps -C postgres -o 'comm cputime etimes rss pcpu' --no-headers | \
-        awk '${AWKCMD}'
-done  > $FN 2>&1 " > /dev/null 2>&1 &
-    echo "$!" > "${WATCHER_PID}"
-
-}
-
-echo "================================================================================"
-echo "* stopping databases"
-echo "================================================================================"
-
-stop_ArangoDB
-stop_MongoDB
-stop_OrientDB
-stop_Neo4j
-stop_Postgresql
-
-killPIDFile "${WATCHER_PID}"
-
 echo "================================================================================"
 echo "* starting: $which $version"
 echo "================================================================================"
@@ -225,14 +126,8 @@ case "$which" in
 arangodb_mmfiles)
     start_ArangoDB_mmfiles
     ;;
-arangodb)
-    start_ArangoDB
-    ;;
-mongodb)
-    start_MongoDB
-    ;;
-rethinkdb)
-    start_RethinkDB
+arangodb_rocksdb)
+    start_ArangoDB_rocksdb
     ;;
 orientdb)
     start_OrientDB
@@ -240,16 +135,9 @@ orientdb)
 neo4j)
     start_Neo4j
     ;;
-postgresql_tabular)
-    start_Postgresql_tabular
-    ;;
-postgresql_jsonb)
-    start_Postgresql_jsonb
-    ;;
 *)
     echo "unsupported database: [$which]"
-    echo "I know: ArangoDB, ArangoDB_mmfiles, MongoDB, OrientDB, Neo4j, Postgresql_tabular, Postgresql_jsonb"
+    echo "I know: arangodb_rocksdb, ArangoDB_mmfiles, OrientDB, Neo4j"
     exit 1
     ;;
 esac
-

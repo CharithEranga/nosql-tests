@@ -42,7 +42,7 @@ export IDTYPE=string #actual
 rm -rf $DB
 
 echo "Starting IMPORT"
-$NEO/bin/neo4j-import --into $DB --id-type $IDTYPE --delimiter TAB --quote Ö  --nodes:PROFILES $PROFILES_HEADER,$PROFILES_OUT --relationships:RELATIONS $RELATIONS_HEADER,$RELATIONS_OUT
+$NEO/bin/neo4j-import --into $DB --id-type $IDTYPE --delimiter TAB --nodes:PROFILES $PROFILES_HEADER,$PROFILES_OUT --relationships:RELATIONS $RELATIONS_HEADER,$RELATIONS_OUT
 
 echo "Creating INDEX"
 $NEO/bin/neo4j start

@@ -1,11 +1,11 @@
 #!/bin/bash
 
 DB=${1}
-TEST_IP=${2-localhost}
+TEST_IP=${2-127.0.0.1}
 LOOP_COUNT=${3-5}
 BENCHMARK=${4-`pwd`}
 DBFOLDER=${5-`pwd`/databases}
-RUSER=${6-ubuntu}
+RUSER=${6-root}
 
 sudo bash -c "
 echo never > /sys/kernel/mm/transparent_hugepage/enabled
@@ -18,11 +18,11 @@ echo 1 > /proc/sys/net/ipv4/tcp_tw_reuse
 ulimit -n 65000
 
 start_database() {
-  ssh -n -T ${RUSER}@${TEST_IP} ${BENCHMARK}/startdb.sh $DB $RESOURCE_USAGE_PATH $DBFOLDER
+    ssh -n -T ${RUSER}@${TEST_IP} ${BENCHMARK}/startdb.sh $DB $RESOURCE_USAGE_PATH $DBFOLDER
 }
 
 stop_database() {
- ssh -n -T ${RUSER}@${TEST_IP} ${BENCHMARK}/stopdb.sh $DBFOLDER
+    ssh -n -T ${RUSER}@${TEST_IP} ${BENCHMARK}/stopdb.sh $DBFOLDER
 }
 
 TODAY=`date +%Y.%m.%d`
@@ -44,9 +44,7 @@ done
 case $DB in
     arangodb*) MATCH_PS="arangod;" ;;
     neo4j*)    MATCH_PS="java;" ;;
-    mongodb*)  MATCH_PS="mongod;" ;;
     orientdb*) MATCH_PS="java;";;
-    postgresql*) MATCH_PS="postgres;";;
     *) echo "unknown database $DB"; exit 1
 esac
 

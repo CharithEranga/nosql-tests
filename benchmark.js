@@ -11,13 +11,10 @@ var async = require('async');
 var argv = require('yargs')
   .usage('Usage: $0 <command> [options]')
 
-  .command('arangodb', 'ArangoDB benchmark')
-  .command('arangodb-mmfiles', 'ArangoDB benchmark')
-  .command('mongodb', 'MongoDB benchmark')
+  .command('arangodb_rocksdb', 'ArangoDB-rocksdb benchmark')
+  .command('arangodb_mmfiles', 'ArangoDB-mmfiles benchmark')
   .command('neo4j', 'neo4j benchmark')
   .command('orientdb', 'orientdb benchmark')
-  .command('postgresql', 'postgresql JSON benchmark')
-  .command('postgresql_tabular', 'postgresql tabular benchmark')
   .demand(1)
 
   .option('t', {
@@ -67,7 +64,7 @@ var argv = require('yargs')
 
   .boolean('d')
   .help('h')
-  .epilog('copyright 2015 Claudius Weinberger')
+  .epilog('copyright 2015 Claudius Weinberger & Updated by Charith Munasinghe')
   .argv
 ;
 

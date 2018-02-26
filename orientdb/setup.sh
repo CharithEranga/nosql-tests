@@ -9,7 +9,7 @@ TMPZIP=$DOWNLOADS/orientZip
 if [ ! -d $DB ] 
 then
   ## OrientDB
-  wget http://bit.ly/orientdb-ce-imps-2-2-29 -O $DOWNLOADS/orientdb-community.zip
+  wget http://bit.ly/orientdb-ce-imps-2-2-32 -O $DOWNLOADS/orientdb-community.zip
   ## Zip cannot remove top-dir
   unzip -d "$TMPZIP" "$DOWNLOADS/orientdb-community.zip" && f=("$TMPZIP"/*) && mv "$TMPZIP"/*/* "$TMPZIP" && rmdir "${f[@]}"
   mv $TMPZIP $DB

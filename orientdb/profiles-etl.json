@@ -18,13 +18,11 @@
        "useLightweightEdges" : true,
        "dbAutoCreateProperties": true,
        "classes": [
-         {"name": "Profile", "extends": "V", "clusters": 1},
-         {"name": "Relation", "extends": "E"}
-       ], "indexes": [
+         {"name": "Profile", "extends": "V", "clusters": 1}
+       ], 
+       "indexes": [
          {"class":"Profile", "fields":["_key:string"], "type":"UNIQUE_HASH_INDEX" }
-       ],
-       "settings": {
-       }
+       ]
     }
   }
 }
