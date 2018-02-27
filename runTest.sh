@@ -1,11 +1,11 @@
 #!/bin/bash
 
 DB=${1}
-TEST_IP=${2-13.126.160.166}
+TEST_IP=${2-127.0.0.1}
 LOOP_COUNT=${3-5}
 BENCHMARK=${4-`pwd`}
 DBFOLDER=${5-`pwd`/databases}
-RUSER=${6-centos}
+RUSER=${6-root}
 
 sudo bash -c "
 echo never > /sys/kernel/mm/transparent_hugepage/enabled
@@ -20,21 +20,21 @@ ulimit -n 65000
 #13.126.160.166
 
 start_database() {
-    ssh -i key.pem ${RUSER}@${TEST_IP} -y
-    sudo su -
-    docker exec bench01 ${BENCHMARK}/startdb.sh $DB $RESOURCE_USAGE_PATH $DBFOLDER
-    exit
-    exit
-    #ssh -n -T ${RUSER}@${TEST_IP} ${BENCHMARK}/startdb.sh $DB $RESOURCE_USAGE_PATH $DBFOLDER
+    #ssh -i key.pem ${RUSER}@${TEST_IP} -y
+    #sudo su -
+    #docker exec bench01 ${BENCHMARK}/startdb.sh $DB $RESOURCE_USAGE_PATH $DBFOLDER
+    #exit
+    #exit
+    ssh -n -T ${RUSER}@${TEST_IP} ${BENCHMARK}/startdb.sh $DB $RESOURCE_USAGE_PATH $DBFOLDER
 }
 
 stop_database() {
-    ssh -i key.pem ${RUSER}@${TEST_IP} -y
-    sudo su -
-    docker exec bench01 ${BENCHMARK}/stopdb.sh $DBFOLDER
-    exit
-    exit
-    #ssh -n -T ${RUSER}@${TEST_IP} ${BENCHMARK}/stopdb.sh $DBFOLDER
+    #ssh -i key.pem ${RUSER}@${TEST_IP} -y
+    #sudo su -
+    #docker exec bench01 ${BENCHMARK}/stopdb.sh $DBFOLDER
+    #exit
+    #exit
+    ssh -n -T ${RUSER}@${TEST_IP} ${BENCHMARK}/stopdb.sh $DBFOLDER
 }
 
 TODAY=`date +%Y.%m.%d`
