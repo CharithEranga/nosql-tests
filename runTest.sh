@@ -1,11 +1,11 @@
 #!/bin/bash
 
 DB=${1}
-TEST_IP=${2-127.0.0.1}
+TEST_IP=${2-13.126.160.166}
 LOOP_COUNT=${3-5}
 BENCHMARK=${4-`pwd`}
 DBFOLDER=${5-`pwd`/databases}
-RUSER=${6-root}
+RUSER=${6-centos}
 
 sudo bash -c "
 echo never > /sys/kernel/mm/transparent_hugepage/enabled
@@ -17,8 +17,10 @@ echo 1 > /proc/sys/net/ipv4/tcp_tw_reuse
 
 ulimit -n 65000
 
+#13.126.160.166
+
 start_database() {
-    ssh -i key.pem centos@13.126.160.166 -y
+    ssh -i key.pem ${RUSER}@${TEST_IP} -y
     sudo su -
     docker exec bench01 ${BENCHMARK}/startdb.sh $DB $RESOURCE_USAGE_PATH $DBFOLDER
     exit
@@ -27,7 +29,7 @@ start_database() {
 }
 
 stop_database() {
-    ssh -i key.pem centos@13.126.160.166 -y
+    ssh -i key.pem ${RUSER}@${TEST_IP} -y
     sudo su -
     docker exec bench01 ${BENCHMARK}/stopdb.sh $DBFOLDER
     exit
