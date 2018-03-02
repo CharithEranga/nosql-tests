@@ -1,16 +1,19 @@
 {
-  "name": "graph-benchmark",
-  "version": "0.2.0",
-  "description": "Graph Benchmark Suite",
+  "name": "nosql-benchmark",
+  "version": "0.1.0",
+  "description": "NoSQL Benchmark Suite",
   "main": "benchmark.js",
   "files": [
     "benchmark.js",
     "LICENSE",
     "README.md",
-    "arangodb_rocksdb/",
+    "arangodb/",
     "arangodb_mmfiles/",
+    "mongodb/",
     "neo4j/",
-    "orientdb/"
+    "orientdb/",
+    "postgres_jsonb/",
+    "postgres_tabular/"
   ],
   "scripts": {
     "lint": "eslint benchmark.js arangodb mongodb orientdb neo4j",
@@ -18,23 +21,24 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/CharithEranga/nosql-tests.git"
+    "url": "https://github.com/weinberger/nosql-tests"
   },
-  "author": "Charith Munasinghe <eranga.charith@gmail.com>",
+  "author": "Claudius Weinberger <claudius@arangodb.com>",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/CharithEranga/nosql-tests/issues"
+    "url": "https://github.com/weinberger/nosql-tests/issues"
   },
   "devDependencies": {
     "eslint": "^0.22.1"
   },
   "dependencies": {
-    "arangojs": "6.1.1",
-    "neo4j-driver": "1.5.3",
-    "orientjs": "2.2.8",
+    "arangojs": "5.8.0",
     "async": "^2.5.0",
     "bluebird": "^3.5.0",
     "line-by-line": "^0.1.6",
+    "mongodb": "3.0.1",
+    "neo4j-driver": "1.5.3",
+    "orientjs": "2.2.7",
     "pg-promise": "7.4.1",
     "underscore": "1.8.3",
     "yargs": "^9.0.1"

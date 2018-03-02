@@ -24,7 +24,7 @@ fi
 (cd $DB; ./usr/sbin/arangod pokec-mmfiles --server.storage-engine mmfiles --server.authentication false --javascript.app-path apps --javascript.startup-directory usr/share/arangodb3/js --log.file /var/tmp/arangodb.log &)
 sleep 3
 START=`date +%s`
-$BENCHMARK/arangodb_mmfiles/import.sh "pokec" $DB $BENCHMARK
+$BENCHMARK/arangodb/import.sh "pokec" $DB $BENCHMARK
 END=`date +%s`
 echo "Import took: $((END - START)) seconds"
 sudo pkill arangod

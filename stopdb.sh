@@ -31,25 +31,19 @@ killPIDFile() {
     fi
 }
 
-## ArangoDB
 
 stop_ArangoDB() {
     killPIDFile "/tmp/arangodb.pid"
 }
-
-## OrientDB
 
 stop_OrientDB() {
     cd ${DBFOLDER}/orientdb
     ./bin/shutdown.sh > /dev/null 2>&1
 }
 
-## Neo4j
-
 stop_Neo4j() {
     ${DBFOLDER}/neo4j/bin/neo4j stop
 }
-
 
 echo "================================================================================"
 echo "* stopping databases"

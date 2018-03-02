@@ -8,7 +8,8 @@ TMPZIP=$DOWNLOADS/neo4jTar
 
 if [ ! -d $DB ]
 then
-  wget https://neo4j.com/artifact.php?name=neo4j-community-3.3.3-unix.tar.gz -O $DOWNLOADS/neo4j-community.tar.gz
+  # https://neo4j.com/download/other-releases/
+  wget https://neo4j.com/artifact.php?name=neo4j-community-3.3.1-unix.tar.gz -O $DOWNLOADS/neo4j-community.tar.gz
   mkdir -p $TMPZIP/neo4j
   tar -zxvf $DOWNLOADS/neo4j-community.tar.gz -C $TMPZIP/neo4j --strip-components=1
   mv $TMPZIP/* $DB

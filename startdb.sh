@@ -19,9 +19,6 @@ WATCHER_PID=/tmp/watcher.pid
 # comm cputime etimes rss pcpu
 export AWKCMD='{a[$1] = $1; b[$1] = $2; c[$1] = $3; d[$1] = $4; e[$1] = $5} END {for (i in a) printf "%s; %s; %s; %0.1f; %0.1f\n", a[i], b[i], c[i], d[i], e[i]}'
 
-
-## ArangoDB
-
 start_ArangoDB_mmfiles() {
     ADB=${DBFOLDER}/arangodb
     cd ${ADB}
@@ -51,7 +48,7 @@ done > $FN 2>&1" > /dev/null 2>&1 &
     echo "$!" > "${WATCHER_PID}"
 }
  
-start_ArangoDB_rocksdb() {
+start_ArangoDB() {
     ADB=${DBFOLDER}/arangodb
     cd ${ADB}
     ${ADB}/usr/sbin/arangod \
@@ -81,8 +78,6 @@ done > $FN 2>&1" > /dev/null 2>&1 &
     echo "$!" > "${WATCHER_PID}"
 }
 
-## OrientDB
-
 start_OrientDB() {
     cd ${DBFOLDER}/orientdb
     ./bin/server.sh -Xmx28G -Dstorage.wal.maxSize=28000 > /var/tmp/orientdb.log 2>&1 &
@@ -98,8 +93,6 @@ while true; do
 done  > $FN 2>&1 " > /dev/null 2>&1 &
     echo "$!" > "${WATCHER_PID}"
 }
-
-## Neo4j
 
 start_Neo4j() {
     cd ${DBFOLDER}/neo4j
@@ -126,8 +119,8 @@ case "$which" in
 arangodb_mmfiles)
     start_ArangoDB_mmfiles
     ;;
-arangodb_rocksdb)
-    start_ArangoDB_rocksdb
+arangodb)
+    start_ArangoDB
     ;;
 orientdb)
     start_OrientDB
@@ -137,7 +130,8 @@ neo4j)
     ;;
 *)
     echo "unsupported database: [$which]"
-    echo "I know: arangodb_rocksdb, ArangoDB_mmfiles, OrientDB, Neo4j"
+    echo "I know: ArangoDB, ArangoDB_mmfiles, OrientDB, Neo4j"
     exit 1
     ;;
 esac
+

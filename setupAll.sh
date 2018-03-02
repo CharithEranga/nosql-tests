@@ -10,14 +10,11 @@ mkdir -p $DOWNLOADS
 
 ## Neo4j
 ./neo4j/setup.sh $BENCHMARK $DBFOLDER $TMP
-sleep 5
 
 ## ArangoDB
-./arangodb_rocksdb/setup.sh $BENCHMARK $DBFOLDER $TMP
+./arangodb/setup.sh $BENCHMARK $DBFOLDER $TMP
 sleep 5
 ./arangodb_mmfiles/setup.sh $BENCHMARK $DBFOLDER $TMP
-sleep 5
 
 ## OrientDB
 ./orientdb/setup.sh $BENCHMARK $DBFOLDER $TMP
-sleep 5

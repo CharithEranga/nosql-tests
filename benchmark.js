@@ -11,8 +11,8 @@ var async = require('async');
 var argv = require('yargs')
   .usage('Usage: $0 <command> [options]')
 
-  .command('arangodb_rocksdb', 'ArangoDB-rocksdb benchmark')
-  .command('arangodb_mmfiles', 'ArangoDB-mmfiles benchmark')
+  .command('arangodb', 'ArangoDB benchmark')
+  .command('arangodb-mmfiles', 'ArangoDB benchmark')
   .command('neo4j', 'neo4j benchmark')
   .command('orientdb', 'orientdb benchmark')
   .demand(1)
@@ -64,7 +64,7 @@ var argv = require('yargs')
 
   .boolean('d')
   .help('h')
-  .epilog('copyright 2015 Claudius Weinberger & Updated by Charith Munasinghe')
+  .epilog('copyright 2015 Claudius Weinberger')
   .argv
 ;
 
