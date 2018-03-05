@@ -18,11 +18,13 @@ echo 1 > /proc/sys/net/ipv4/tcp_tw_reuse
 ulimit -n 65000
 
 start_database() {
-  ssh -n -T ${RUSER}@${TEST_IP} ${BENCHMARK}/startdb.sh $DB $RESOURCE_USAGE_PATH $DBFOLDER
+  #ssh -n -T ${RUSER}@${TEST_IP} ${BENCHMARK}/startdb.sh $DB $RESOURCE_USAGE_PATH $DBFOLDER
+  ${BENCHMARK}/startdb.sh $DB $RESOURCE_USAGE_PATH $DBFOLDER
 }
 
 stop_database() {
- ssh -n -T ${RUSER}@${TEST_IP} ${BENCHMARK}/stopdb.sh $DBFOLDER
+  #ssh -n -T ${RUSER}@${TEST_IP} ${BENCHMARK}/stopdb.sh $DBFOLDER
+  ${BENCHMARK}/stopdb.sh $DBFOLDER
 }
 
 TODAY=`date +%Y.%m.%d`
