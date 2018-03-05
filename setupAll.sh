@@ -9,7 +9,7 @@ mkdir -p $DBFOLDER
 mkdir -p $DOWNLOADS
 
 ## OrientDB
-#./orientdb/setup.sh $BENCHMARK $DBFOLDER $TMP
+./orientdb/setup.sh $BENCHMARK $DBFOLDER $TMP
 
 ## Neo4j
 ./neo4j/setup.sh $BENCHMARK $DBFOLDER $TMP
