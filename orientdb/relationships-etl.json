@@ -20,19 +20,12 @@
     "orientdb": {
        "dbURL": "plocal:@DATABASE@",
        "dbType": "graph",
-       "wal": false,
-       "batchCommit": 10000,
-       "tx": false,
-       "txUseLog": false,
-       "useLightweightEdges" : true,
        "classes": [
-         {"name": "Profile", "extends": "V", "clusters": 1},
          {"name": "Relation", "extends": "E"}
-       ], "indexes": [
+       ], 
+       "indexes": [
          {"class":"Profile", "fields":["_key:string"], "type":"UNIQUE_HASH_INDEX" }
-       ],
-       "settings": {
-       }
+       ]
     }
   }
 }
