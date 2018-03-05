@@ -5,7 +5,7 @@ TEST_IP=${2-localhost}
 LOOP_COUNT=${3-5}
 BENCHMARK=${4-`pwd`}
 DBFOLDER=${5-`pwd`/databases}
-RUSER=${6-ubuntu}
+RUSER=${6-root}
 
 sudo bash -c "
 echo never > /sys/kernel/mm/transparent_hugepage/enabled
@@ -76,7 +76,8 @@ for i in `seq 0 ${LOOP_COUNT}`; do
 
     node benchmark ${DB} -a ${TEST_IP} -t ${TESTS} | tee /tmp/testrundata.txt
 
-    scp ${RUSER}@${TEST_IP}:${RESOURCE_USAGE_PATH} ${RESULT_PATH}
+    #scp ${RUSER}@${TEST_IP}:${RESOURCE_USAGE_PATH} ${RESULT_PATH}
+    cp ${RESOURCE_USAGE_PATH} ${RESULT_PATH}
 
     MAX_RSS="`sort -n -t ';' -k 5 < ${RESULT_PATH}${RESOURCE_USAGE_FILE} | fgrep $MATCH_PS | fgrep -v "<defunct>;" | tail -n 1 | awk '-F;' '{print $5}'`"
     MAX_PCPU="`sort -n -t ';' -k 6 < ${RESULT_PATH}${RESOURCE_USAGE_FILE} | fgrep $MATCH_PS | fgrep -v "<defunct>;" | tail -n 1 | awk '-F;' '{print $6}'`"
