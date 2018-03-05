@@ -13,8 +13,11 @@ var argv = require('yargs')
 
   .command('arangodb', 'ArangoDB benchmark')
   .command('arangodb-mmfiles', 'ArangoDB benchmark')
+  .command('mongodb', 'MongoDB benchmark')
   .command('neo4j', 'neo4j benchmark')
   .command('orientdb', 'orientdb benchmark')
+  .command('postgresql', 'postgresql JSON benchmark')
+  .command('postgresql_tabular', 'postgresql tabular benchmark')
   .demand(1)
 
   .option('t', {
