@@ -20,7 +20,7 @@
     "orientdb": {
        "dbURL": "plocal:@DATABASE@",
        "dbType": "graph",
-        "wal": "false",
+        "wal": false,
        "batchCommit": 10000,
        "txUseLog": false,
        "dbAutoDropIfExists": true,
