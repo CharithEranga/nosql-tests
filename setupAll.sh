@@ -8,9 +8,6 @@ DOWNLOADS=$TMP/downloads
 mkdir -p $DBFOLDER
 mkdir -p $DOWNLOADS
 
-## OrientDB
-./orientdb/setup.sh $BENCHMARK $DBFOLDER $TMP
-
 ## Neo4j
 ./neo4j/setup.sh $BENCHMARK $DBFOLDER $TMP
 
@@ -18,3 +15,6 @@ mkdir -p $DOWNLOADS
 ./arangodb/setup.sh $BENCHMARK $DBFOLDER $TMP
 sleep 5
 ./arangodb_mmfiles/setup.sh $BENCHMARK $DBFOLDER $TMP
+
+## OrientDB
+./orientdb/setup.sh $BENCHMARK $DBFOLDER $TMP
