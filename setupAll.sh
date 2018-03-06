@@ -15,6 +15,3 @@ mkdir -p $DOWNLOADS
 ./arangodb/setup.sh $BENCHMARK $DBFOLDER $TMP
 sleep 5
 ./arangodb_mmfiles/setup.sh $BENCHMARK $DBFOLDER $TMP
-
-## OrientDB
-./orientdb/setup.sh $BENCHMARK $DBFOLDER $TMP

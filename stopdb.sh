@@ -60,9 +60,6 @@ echo "* stopping databases"
 echo "================================================================================"
 
 stop_ArangoDB
-stop_MongoDB
-stop_OrientDB
 stop_Neo4j
-stop_Postgresql
 
 killPIDFile "${WATCHER_PID}"
