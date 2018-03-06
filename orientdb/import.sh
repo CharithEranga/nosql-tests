@@ -45,5 +45,5 @@ sed \
 
 cd $ORIENTDB/databases
 
-#$ORIENTDB/bin/oetl.sh $TMP/profiles-etl.json
-#$ORIENTDB/bin/oetl.sh $TMP/relationships-etl.json
+$ORIENTDB/bin/oetl.sh $TMP/profiles-etl.json
+$ORIENTDB/bin/oetl.sh $TMP/relationships-etl.json
