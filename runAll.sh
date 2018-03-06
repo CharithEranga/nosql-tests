@@ -1,7 +1,7 @@
 #!/bin/bash
 
 TEST_IP=${1-127.0.0.1}
-LOOP_COUNT=${2-5}
+LOOP_COUNT=${2-10}
 BENCHMARK=${3-`pwd`}
 DBFOLDER=${4-`pwd`/databases}
 RUSER=${5-root}

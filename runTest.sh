@@ -2,7 +2,7 @@
 
 DB=${1}
 TEST_IP=${2-localhost}
-LOOP_COUNT=${3-5}
+LOOP_COUNT=${3-10}
 BENCHMARK=${4-`pwd`}
 DBFOLDER=${5-`pwd`/databases}
 RUSER=${6-root}
