@@ -1,6 +1,11 @@
 #!/bin/bash
 
 BENCHMARK=${1-`pwd`}
+DBFOLDER=${2-`pwd`/databases}
+TMP=/tmp/nosqlbenchmark
+DOWNLOADS=$TMP/downloads
+
+BENCHMARK=${1-`pwd`}
 DB=${2-`pwd`/databases}/orientdb
 TMPDIR=${3-/tmp}
 DOWNLOADS=$TMPDIR/downloads
