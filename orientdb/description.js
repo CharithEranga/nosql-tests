@@ -127,7 +127,13 @@ module.exports = {
   },
 
   saveDocument: function (db, coll, doc, cb) {
+    console.log("inside saveDocument...");
+    console.log(doc);
+
     db.class.get(coll).then(function (klass) {
+      
+      console.log("retrieved collection: "+klass.name);
+      
       klass.create(doc).then(function (rec) {
         cb(null, rec);
       }).catch(function (err) {
