@@ -29,7 +29,7 @@ stop_database() {
 
 TODAY=`date +%Y.%m.%d`
 TESTS_INCLUDE_WARMUP=warmup
-TESTS_EXCLUDE_WARMUP=singleRead,neighbors,neighbors2,neighbors2data,aggregation,shortest,hardPath,singleWrite,singleWriteSync
+TESTS_EXCLUDE_WARMUP=shortest,neighbors,neighbors2,singleRead,singleWrite,singleWriteSync,aggregation,hardPath,neighbors2data
 
 BASE_FN=${DB}_${TODAY}
 RESULT_PATH=${BENCHMARK}/results/
