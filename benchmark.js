@@ -86,8 +86,7 @@ var host = argv.a;
 var total = 0;
 
 if (tests.length === 0 || tests === 'all') {
-  tests = ['warmup', 'shortest', 'neighbors', 'neighbors2', 'singleRead', 'singleWrite',
-           'singleWriteSync', 'aggregation', 'hardPath', 'neighbors2data'];
+  tests = ['warmup', 'singleWrite', 'singleWriteSync', 'singleRead', 'neighbors', 'neighbors2', 'neighbors2data', 'aggregation', 'shortest', 'hardPath'];
 }
 else {
   tests = tests.split(',').map(function (e) { return e.trim(); });
